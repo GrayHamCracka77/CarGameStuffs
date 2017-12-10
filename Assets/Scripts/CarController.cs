@@ -100,9 +100,10 @@ public class CarController : MonoBehaviour
     void fireRocket()
     {
         var bullet = (GameObject)Instantiate(
-                   bulletPrefab,
-                   rocketSpawn.position,
-            Camera.main.transform.rotation);
+                         bulletPrefab,
+                         rocketSpawn.position,
+//            Camera.main.transform.rotation);
+                         rb.rotation);
 
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 75;
 
