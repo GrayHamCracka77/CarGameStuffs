@@ -104,7 +104,7 @@ public class CarController : MonoBehaviour
 //            Camera.main.transform.rotation);
                          rb.rotation);
 
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 75;
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 50;
 
         Destroy(bullet, 2.0f);
     }
