@@ -25,7 +25,7 @@ public class CarController : MonoBehaviour
     public Transform rocketSpawn;
 
     public float bulletDamage = 10f;
-	public static float rocketDamage = 20f;
+    public static float rocketDamage = 20f;
     public float range = 100f;
     public float gunFireRate = 15f;
     public Transform bulletSpawn;
@@ -100,9 +100,9 @@ public class CarController : MonoBehaviour
     void fireRocket()
     {
         var bullet = (GameObject)Instantiate(
-            bulletPrefab,
-            rocketSpawn.position,
-            rocketSpawn.rotation);
+                   bulletPrefab,
+                   rocketSpawn.position,
+            Camera.main.transform.rotation);
 
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 75;
 
@@ -112,14 +112,14 @@ public class CarController : MonoBehaviour
     void fireBullet()
     {
         RaycastHit hit;
-		if (Physics.Raycast(bulletSpawn.transform.position, bulletSpawn.transform.forward, out hit, range))
+        if (Physics.Raycast(bulletSpawn.transform.position, bulletSpawn.transform.forward, out hit, range))
         {
             Debug.Log(hit.transform.name);
-			Debug.Log (hit.transform.tag);
+            Debug.Log(hit.transform.tag);
 
-			if (hit.transform.tag == "Target")
+            if (hit.transform.tag == "Target")
             {
-				hit.collider.GetComponent<Target>().TakeDamage(bulletDamage);
+                hit.collider.GetComponent<Target>().TakeDamage(bulletDamage);
             }
         }
     }
