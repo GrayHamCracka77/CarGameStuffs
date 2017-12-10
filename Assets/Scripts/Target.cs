@@ -18,13 +18,4 @@ public class Target : MonoBehaviour {
     {
         Destroy(gameObject);
     }
-
-	void OnCollisionEnter (Collision col)
-	{
-		if (col.collider.tag == "Rocket") 
-		{
-			TakeDamage (CarController.rocketDamage);
-			Destroy (col.gameObject);
-		}
-	}
 }

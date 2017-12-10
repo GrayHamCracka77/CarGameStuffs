@@ -25,7 +25,6 @@ public class CarController : MonoBehaviour
     public Transform rocketSpawn;
 
     public float bulletDamage = 10f;
-    public static float rocketDamage = 20f;
     public float range = 100f;
     public float gunFireRate = 15f;
     public Transform bulletSpawn;
