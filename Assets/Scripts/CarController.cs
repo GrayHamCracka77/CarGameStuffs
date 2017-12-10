@@ -24,12 +24,13 @@ public class CarController : MonoBehaviour
     public float launcherFireRate = 0.5f;
     public Transform rocketSpawn;
 
-    public float damage = 10f;
+    public float bulletDamage = 10f;
     public float range = 100f;
     public float gunFireRate = 15f;
     public Transform bulletSpawn;
 
     private float nextTimeToFire = 0f;
+    private LineRenderer lineRenderer;
 
 
     private void Start()
@@ -38,6 +39,8 @@ public class CarController : MonoBehaviour
         Debug.Log(rb.centerOfMass);
         rb.centerOfMass = com;
         Debug.Log(rb.centerOfMass);
+
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     // finds the corresponding visual wheel
@@ -99,27 +102,44 @@ public class CarController : MonoBehaviour
     void fireRocket()
     {
         var bullet = (GameObject)Instantiate(
-            bulletPrefab,
-            rocketSpawn.position,
-            rocketSpawn.rotation);
+                         bulletPrefab,
+                         rocketSpawn.position,
+//            Camera.main.transform.rotation);
+                         rb.rotation);
 
-        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 25;
+        bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 50;
 
         Destroy(bullet, 2.0f);
     }
 
     void fireBullet()
     {
+        
+        StartCoroutine(shotEffect());
         RaycastHit hit;
-        if (Physics.Raycast(rocketSpawn.transform.position, rocketSpawn.transform.forward, out hit, range))
+        if (Physics.Raycast(bulletSpawn.transform.position, bulletSpawn.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
+            lineRenderer.SetPosition(0, Camera.main.transform.position - new Vector3(0, 0.5f, 0));
+            lineRenderer.SetPosition(1, hit.point);
 
-            Target target = hit.transform.GetComponent<Target>();
-            if (target != null)
+            if (hit.transform.tag == "Target")
             {
-                target.TakeDamage(damage);
+                hit.collider.GetComponent<Target>().TakeDamage(bulletDamage);
             }
         }
+//        else
+//        {
+//            lineRenderer.SetPosition(0, Camera.main.transform.position - new Vector3(0, 0.5f, 0));
+//            lineRenderer.SetPosition(1, bulletSpawn.transform.position + new Vector3(0, 0, range)); 
+//        }
     }
+
+    private IEnumerator shotEffect()
+    {
+        lineRenderer.enabled = true;
+        yield return new WaitForSeconds(.07f);
+        lineRenderer.enabled = false;
+    }
+
+         
 }

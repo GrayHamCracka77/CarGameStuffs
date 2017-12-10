@@ -55,9 +55,10 @@ GameObject:
   - component: {fileID: 4565825485664464}
   - component: {fileID: 54835997504415926}
   - component: {fileID: 136996522124211308}
+  - component: {fileID: 114513557365393400}
   m_Layer: 0
   m_Name: Bullet
-  m_TagString: Untagged
+  m_TagString: Rocket
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,7 +70,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1774056324493528}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0.5}
   m_LocalScale: {x: 0.25, y: 0.5, z: 0.25}
   m_Children: []
   m_Father: {fileID: 4565825485664464}
@@ -82,7 +83,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1268127544990958}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 0, z: -0.5}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_Children: []
   m_Father: {fileID: 4565825485664464}
@@ -198,8 +199,22 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 112
   m_CollisionDetection: 0
+--- !u!114 &114513557365393400
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1909165427322542}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09694b90ae4115649b271f0da54491af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rocketDamage: 20
+  explosionPrefab: {fileID: 1955174330187326, guid: f8ebff96a19bdaa46aab32b4bc47ec5a,
+    type: 2}
 --- !u!136 &136996522124211308
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -212,4 +227,4 @@ CapsuleCollider:
   m_Radius: 0.15
   m_Height: 1.5
   m_Direction: 2
-  m_Center: {x: 0, y: 0, z: -0.25}
+  m_Center: {x: 0, y: 0, z: 0.25}
