@@ -114,11 +114,11 @@ public class CarController : MonoBehaviour
         if (Physics.Raycast(rocketSpawn.transform.position, rocketSpawn.transform.forward, out hit, range))
         {
             Debug.Log(hit.transform.name);
+			Debug.Log (hit.transform.tag);
 
-            Target target = hit.transform.GetComponent<Target>();
-            if (target != null)
+			if (hit.transform.tag == "Target")
             {
-                target.TakeDamage(damage);
+				hit.collider.GetComponent<Target>().TakeDamage(damage);
             }
         }
     }
