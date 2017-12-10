@@ -30,6 +30,7 @@ public class CarController : MonoBehaviour
     public Transform bulletSpawn;
 
     private float nextTimeToFire = 0f;
+    private LineRenderer lineRenderer;
 
 
     private void Start()
@@ -38,6 +39,8 @@ public class CarController : MonoBehaviour
         Debug.Log(rb.centerOfMass);
         rb.centerOfMass = com;
         Debug.Log(rb.centerOfMass);
+
+        lineRenderer = GetComponent<LineRenderer>();
     }
 
     // finds the corresponding visual wheel
@@ -111,16 +114,32 @@ public class CarController : MonoBehaviour
 
     void fireBullet()
     {
+        
+        StartCoroutine(shotEffect());
         RaycastHit hit;
         if (Physics.Raycast(bulletSpawn.transform.position, bulletSpawn.transform.forward, out hit, range))
         {
-            Debug.Log(hit.transform.name);
-            Debug.Log(hit.transform.tag);
+            lineRenderer.SetPosition(0, Camera.main.transform.position - new Vector3(0, 0.5f, 0));
+            lineRenderer.SetPosition(1, hit.point);
 
             if (hit.transform.tag == "Target")
             {
                 hit.collider.GetComponent<Target>().TakeDamage(bulletDamage);
             }
         }
+//        else
+//        {
+//            lineRenderer.SetPosition(0, Camera.main.transform.position - new Vector3(0, 0.5f, 0));
+//            lineRenderer.SetPosition(1, bulletSpawn.transform.position + new Vector3(0, 0, range)); 
+//        }
     }
+
+    private IEnumerator shotEffect()
+    {
+        lineRenderer.enabled = true;
+        yield return new WaitForSeconds(.07f);
+        lineRenderer.enabled = false;
+    }
+
+         
 }
