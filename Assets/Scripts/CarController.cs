@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class AxleInfo
@@ -32,6 +33,7 @@ public class CarController : MonoBehaviour
     private float nextTimeToFire = 0f;
     private LineRenderer lineRenderer;
 
+    public Slider health;
 
     private void Start()
     {
@@ -41,6 +43,7 @@ public class CarController : MonoBehaviour
         Debug.Log(rb.centerOfMass);
 
         lineRenderer = GetComponent<LineRenderer>();
+        health.value = 1f;
     }
 
     // finds the corresponding visual wheel
@@ -97,6 +100,7 @@ public class CarController : MonoBehaviour
             nextTimeToFire = Time.time + 1f / launcherFireRate;
             fireRocket();
         }
+            
     }
 
     void fireRocket()
@@ -104,7 +108,6 @@ public class CarController : MonoBehaviour
         var bullet = (GameObject)Instantiate(
                          bulletPrefab,
                          rocketSpawn.position,
-//            Camera.main.transform.rotation);
                          rb.rotation);
 
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 50;
