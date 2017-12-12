@@ -30,6 +30,8 @@ public class CarController : MonoBehaviour
     public float gunFireRate = 15f;
     public Transform bulletSpawn;
 
+    public GameObject laserEffect;
+
     private float nextTimeToFire = 0f;
     private LineRenderer lineRenderer;
 
@@ -133,6 +135,9 @@ public class CarController : MonoBehaviour
         {
             lineRenderer.SetPosition(0, Camera.main.transform.position - new Vector3(0, 0.5f, 0));
             lineRenderer.SetPosition(1, hit.point);
+
+            // Effect will start itself and destroy itself when finished so we don't need to destroy it
+            Instantiate(laserEffect, hit.point, Quaternion.AngleAxis(180f, laserEffect.transform.right));
 
             if (hit.transform.tag == "Target")
             {
