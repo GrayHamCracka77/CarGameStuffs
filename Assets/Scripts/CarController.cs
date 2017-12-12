@@ -147,7 +147,7 @@ public class CarController : MonoBehaviour
 //        else
 //        {
 //            lineRenderer.SetPosition(0, Camera.main.transform.position - new Vector3(0, 0.5f, 0));
-//            lineRenderer.SetPosition(1, bulletSpawn.transform.position + new Vector3(0, 0, range)); 
+//            lineRenderer.SetPosition(1, hit.point); 
 //        }
     }
 
