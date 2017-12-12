@@ -46,6 +46,7 @@ public class CarController : MonoBehaviour
         Debug.Log(rb.centerOfMass);
 
         lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
         health.value = 1f;
     }
 
