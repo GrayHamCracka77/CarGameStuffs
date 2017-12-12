@@ -33,6 +33,7 @@ public class CarController : MonoBehaviour
     private float nextTimeToFire = 0f;
     private LineRenderer lineRenderer;
 
+    // Slider is 0 - 1; 1 assumed to be 100 at this point
     public Slider health;
 
     private void Start()
@@ -101,6 +102,14 @@ public class CarController : MonoBehaviour
             fireRocket();
         }
             
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.transform.tag == "Target")
+        {
+            health.value -= Target.damage / 100f;
+        }
     }
 
     void fireRocket()
