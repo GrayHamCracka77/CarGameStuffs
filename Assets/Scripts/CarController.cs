@@ -93,16 +93,19 @@ public class CarController : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
+        if (!PauseMenu.isPaused)
         {
-            nextTimeToFire = Time.time + 1f / gunFireRate;
-            fireBullet();
-        }
+            if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
+            {
+                nextTimeToFire = Time.time + 1f / gunFireRate;
+                fireBullet();
+            }
 
-        if (Input.GetButtonDown("Fire2") && Time.time >= nextTimeToFire)
-        {
-            nextTimeToFire = Time.time + 1f / launcherFireRate;
-            fireRocket();
+            if (Input.GetButtonDown("Fire2") && Time.time >= nextTimeToFire)
+            {
+                nextTimeToFire = Time.time + 1f / launcherFireRate;
+                fireRocket();
+            }
         }
             
     }
