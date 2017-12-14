@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class AxleInfo
@@ -29,9 +30,13 @@ public class CarController : MonoBehaviour
     public float gunFireRate = 15f;
     public Transform bulletSpawn;
 
+    public GameObject laserEffect;
+
     private float nextTimeToFire = 0f;
     private LineRenderer lineRenderer;
 
+    // Slider is 0 - 1; 1 assumed to be 100 at this point
+    public Slider health;
 
     private void Start()
     {
@@ -41,6 +46,8 @@ public class CarController : MonoBehaviour
         Debug.Log(rb.centerOfMass);
 
         lineRenderer = GetComponent<LineRenderer>();
+        lineRenderer.enabled = false;
+        health.value = 1f;
     }
 
     // finds the corresponding visual wheel
@@ -86,16 +93,28 @@ public class CarController : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
+        if (!PauseMenu.isPaused)
         {
-            nextTimeToFire = Time.time + 1f / gunFireRate;
-            fireBullet();
-        }
+            if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
+            {
+                nextTimeToFire = Time.time + 1f / gunFireRate;
+                fireBullet();
+            }
 
-        if (Input.GetButtonDown("Fire2") && Time.time >= nextTimeToFire)
+            if (Input.GetButtonDown("Fire2") && Time.time >= nextTimeToFire)
+            {
+                nextTimeToFire = Time.time + 1f / launcherFireRate;
+                fireRocket();
+            }
+        }
+            
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.transform.tag == "Target")
         {
-            nextTimeToFire = Time.time + 1f / launcherFireRate;
-            fireRocket();
+            health.value -= Target.damage / 100f;
         }
     }
 
@@ -104,7 +123,6 @@ public class CarController : MonoBehaviour
         var bullet = (GameObject)Instantiate(
                          bulletPrefab,
                          rocketSpawn.position,
-//            Camera.main.transform.rotation);
                          rb.rotation);
 
         bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 50;
@@ -122,6 +140,9 @@ public class CarController : MonoBehaviour
             lineRenderer.SetPosition(0, Camera.main.transform.position - new Vector3(0, 0.5f, 0));
             lineRenderer.SetPosition(1, hit.point);
 
+            // Effect will start itself and destroy itself when finished so we don't need to destroy it
+            Instantiate(laserEffect, hit.point, Quaternion.AngleAxis(180f, laserEffect.transform.right));
+
             if (hit.transform.tag == "Target")
             {
                 hit.collider.GetComponent<Target>().TakeDamage(bulletDamage);
@@ -130,7 +151,7 @@ public class CarController : MonoBehaviour
 //        else
 //        {
 //            lineRenderer.SetPosition(0, Camera.main.transform.position - new Vector3(0, 0.5f, 0));
-//            lineRenderer.SetPosition(1, bulletSpawn.transform.position + new Vector3(0, 0, range)); 
+//            lineRenderer.SetPosition(1, hit.point); 
 //        }
     }
 
