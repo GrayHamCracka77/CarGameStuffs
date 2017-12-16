@@ -4,19 +4,26 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
-    public GameObject player;
+    public GameObject playerCar;
 
     private Vector3 offset;
+
+    public float smoothSpeed = 0.125f;
 
     // Use this for initialization
     void Start()
     {
-        offset = transform.position - player.transform.position;
+        offset = transform.position - playerCar.transform.position;
     }
 
     // LateUpdate is called once per frame at the end of movement
     void LateUpdate()
     {
-        transform.position = player.transform.position + offset;
+        float desiredAngle = playerCar.transform.eulerAngles.y;
+        Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
+        transform.position = playerCar.transform.position + (rotation * offset);
+        transform.LookAt(playerCar.transform);
+
+
     }
 }
