@@ -137,7 +137,7 @@ public class CarController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(bulletSpawn.transform.position, bulletSpawn.transform.forward, out hit, range))
         {
-            lineRenderer.SetPosition(0, Camera.main.transform.position - new Vector3(0, 0.5f, 0));
+            lineRenderer.SetPosition(0, bulletSpawn.transform.position); //- new Vector3(0, 0.5f, 0));
             lineRenderer.SetPosition(1, hit.point);
 
             // Effect will start itself and destroy itself when finished so we don't need to destroy it
@@ -148,11 +148,6 @@ public class CarController : MonoBehaviour
                 hit.collider.GetComponent<Target>().TakeDamage(bulletDamage);
             }
         }
-//        else
-//        {
-//            lineRenderer.SetPosition(0, Camera.main.transform.position - new Vector3(0, 0.5f, 0));
-//            lineRenderer.SetPosition(1, hit.point); 
-//        }
     }
 
     private IEnumerator shotEffect()
