@@ -50,25 +50,6 @@ public class CarController : MonoBehaviour
         health.value = 1f;
     }
 
-    // finds the corresponding visual wheel
-    // correctly applies the transform
-    public void ApplyLocalPositionToVisuals(WheelCollider collider)
-    {
-        if (collider.transform.childCount == 0)
-        {
-            return;
-        }
-
-        Transform visualWheel = collider.transform.GetChild(0);
-
-        Vector3 position;
-        Quaternion rotation;
-        collider.GetWorldPose(out position, out rotation);
-
-        visualWheel.transform.position = position;
-        visualWheel.transform.rotation = rotation;
-    }
-
     public void FixedUpdate()
     {
         float motor = maxMotorTorque * Input.GetAxis("Vertical");
@@ -91,6 +72,25 @@ public class CarController : MonoBehaviour
         }
     }
 
+    // finds the corresponding visual wheel
+    // correctly applies the transform
+    public void ApplyLocalPositionToVisuals(WheelCollider collider)
+    {
+        if (collider.transform.childCount == 0)
+        {
+            return;
+        }
+
+        Transform visualWheel = collider.transform.GetChild(0);
+
+        Vector3 position;
+        Quaternion rotation;
+        collider.GetWorldPose(out position, out rotation);
+
+        visualWheel.transform.position = position;
+        visualWheel.transform.rotation = rotation;
+    }
+
     public void Update()
     {
         if (!PauseMenu.isPaused)
@@ -98,13 +98,13 @@ public class CarController : MonoBehaviour
             if (Input.GetButtonDown("Fire1") && Time.time >= nextTimeToFire)
             {
                 nextTimeToFire = Time.time + 1f / gunFireRate;
-                fireBullet();
+                FireBullet();
             }
 
             if (Input.GetButtonDown("Fire2") && Time.time >= nextTimeToFire)
             {
                 nextTimeToFire = Time.time + 1f / launcherFireRate;
-                fireRocket();
+                FireRocket();
             }
         }
             
@@ -118,7 +118,7 @@ public class CarController : MonoBehaviour
         }
     }
 
-    void fireRocket()
+    void FireRocket()
     {
         var bullet = (GameObject)Instantiate(
                          bulletPrefab,
@@ -130,10 +130,10 @@ public class CarController : MonoBehaviour
         Destroy(bullet, 2.0f);
     }
 
-    void fireBullet()
+    void FireBullet()
     {
         
-        StartCoroutine(shotEffect());
+        StartCoroutine(ShotEffect());
         RaycastHit hit;
         if (Physics.Raycast(bulletSpawn.transform.position, bulletSpawn.transform.forward, out hit, range))
         {
@@ -150,7 +150,7 @@ public class CarController : MonoBehaviour
         }
     }
 
-    private IEnumerator shotEffect()
+    private IEnumerator ShotEffect()
     {
         lineRenderer.enabled = true;
         yield return new WaitForSeconds(.07f);

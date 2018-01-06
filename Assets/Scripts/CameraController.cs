@@ -1,16 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class CameraController : MonoBehaviour {
 
     public GameObject playerCar;
+    public float smoothSpeed = 0.125f;
 
     private Vector3 offset;
 
-    public float smoothSpeed = 0.125f;
-
-    // Use this for initialization
     void Start()
     {
         offset = transform.position - playerCar.transform.position;
@@ -23,7 +19,5 @@ public class CameraController : MonoBehaviour {
         Quaternion rotation = Quaternion.Euler(0, desiredAngle, 0);
         transform.position = playerCar.transform.position + (rotation * offset);
         transform.LookAt(playerCar.transform);
-
-
     }
 }
