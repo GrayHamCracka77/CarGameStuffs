@@ -22,12 +22,12 @@ public class CarController : MonoBehaviour
     public Vector3 com;
 
     public GameObject bulletPrefab;
-    public float launcherFireRate = 0.5f;
+    public float launcherFireRate = 5f;
     public Transform rocketSpawn;
 
     public float bulletDamage = 10f;
     public float range = 100f;
-    public float gunFireRate = 15f;
+    public float gunFireRate = 10f;
     public Transform bulletSpawn;
 
     public GameObject laserEffect;
@@ -137,7 +137,7 @@ public class CarController : MonoBehaviour
         RaycastHit hit;
         if (Physics.Raycast(bulletSpawn.transform.position, bulletSpawn.transform.forward, out hit, range))
         {
-            lineRenderer.SetPosition(0, bulletSpawn.transform.position); //- new Vector3(0, 0.5f, 0));
+            lineRenderer.SetPosition(0, bulletSpawn.transform.position);
             lineRenderer.SetPosition(1, hit.point);
 
             // Effect will start itself and destroy itself when finished so we don't need to destroy it
