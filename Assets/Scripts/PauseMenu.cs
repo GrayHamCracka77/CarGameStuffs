@@ -9,27 +9,25 @@ public class PauseMenu : MonoBehaviour {
         {
             if (menu.gameObject.activeInHierarchy)
             {
-                unpauseGame();
+                SetPaused(false);
             }
             else
             {
-                menu.gameObject.SetActive(true);
-                Time.timeScale = 0f;
-                isPaused = true;
+                SetPaused(true);
             }
         }
 	}
 
     public void ResumeGame()
     {
-        unpauseGame();
+        SetPaused(false);
     }
 
-    private void unpauseGame()
+    private void SetPaused(bool shouldPause)
     {
-        menu.gameObject.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
+        menu.gameObject.SetActive(shouldPause);
+        Time.timeScale = shouldPause ? 0f : 1f;
+        isPaused = shouldPause;
     }
 
     public void ExitGame()

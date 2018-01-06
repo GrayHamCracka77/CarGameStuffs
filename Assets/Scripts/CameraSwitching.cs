@@ -5,7 +5,6 @@ public class CameraSwitching : MonoBehaviour {
     public Camera close;
     public Camera far;
 
-	// Use this for initialization
 	void Start () {
         close.enabled = true;
         close.GetComponent<AudioListener>().enabled = true;
@@ -13,7 +12,6 @@ public class CameraSwitching : MonoBehaviour {
         far.GetComponent<AudioListener>().enabled = false;
 	}
 	
-	// Update is called once per frame
 	void Update () {
 		if (Input.GetKeyDown(KeyCode.C))
         {
