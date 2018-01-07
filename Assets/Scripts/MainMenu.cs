@@ -5,9 +5,12 @@ public class MainMenu : MonoBehaviour {
 
     public void PlayGame() 
     {
-        // Get next scene
-        // Can also call by name or build index
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+    }
+
+    public void LoadEditor()
+    {
+        SceneManager.LoadScene("CarEditor");
     }
 
     public void QuitGame()

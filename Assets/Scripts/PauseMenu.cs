@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour {
     public Transform menu;
@@ -28,6 +29,11 @@ public class PauseMenu : MonoBehaviour {
         menu.gameObject.SetActive(shouldPause);
         Time.timeScale = shouldPause ? 0f : 1f;
         isPaused = shouldPause;
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("Menu");
     }
 
     public void ExitGame()

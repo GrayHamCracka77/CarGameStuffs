@@ -32,11 +32,11 @@ public class CarController : MonoBehaviour
 
     public GameObject laserEffect;
 
-    private float nextTimeToFire = 0f;
-    private LineRenderer lineRenderer;
-
     // Slider is 0 - 1; 1 assumed to be 100 at this point
     public Slider health;
+
+    private float nextTimeToFire = 0f;
+    private LineRenderer lineRenderer;
 
     private void Start()
     {
