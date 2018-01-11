@@ -11,3 +11,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scene/CarTest.unity
     guid: db0593ecdce3f604da7de89d61ddcced
+  - enabled: 1
+    path: Assets/Scene/CarEditor.unity
+    guid: ddbdec6fd4f1e434a81c2bfb6be4a940
