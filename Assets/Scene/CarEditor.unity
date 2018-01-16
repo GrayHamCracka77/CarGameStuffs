@@ -311,9 +311,12 @@ MonoBehaviour:
     type: 2}
   _defaultWeapon: {fileID: 4095340504871060, guid: 659b707d513772b4e8beb65fa408eb3f,
     type: 2}
-  _alternativeWeapons:
+  _possibleWeapons:
   - {fileID: 4095340504871060, guid: 659b707d513772b4e8beb65fa408eb3f, type: 2}
   - {fileID: 4888811598987352, guid: d74e22927e496c14b95051cadad37ba1, type: 2}
+  _possibleCarBody:
+  - {fileID: 4705325922725538, guid: 4de7b035616ced840a40294965a0d614, type: 2}
+  - {fileID: 4784367763632004, guid: 59fd37ede2dcadf419a6a414d26b6fcc, type: 2}
 --- !u!54 &1178309953
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -327,7 +330,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 14
   m_CollisionDetection: 0
 --- !u!114 &1178309954
 MonoBehaviour:
