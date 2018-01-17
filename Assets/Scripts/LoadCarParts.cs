@@ -13,13 +13,11 @@ public class LoadCarParts : MonoBehaviour
     public List<Transform> _possibleCarBody;
 
     private Transform currentBody;
-    private List<Transform>.Enumerator carBodyEnumerator;
+    private int bodyIndex;
 
     void Start()
     {
-        carBodyEnumerator = _possibleCarBody.GetEnumerator();
-        carBodyEnumerator.MoveNext();
-
+        bodyIndex = 0;
         currentBody = Instantiate(_defaultCarBody, _carRoot);
         Instantiate(_defaultWeapon, _carRoot);
     }
@@ -29,13 +27,20 @@ public class LoadCarParts : MonoBehaviour
         Transform nextBody = null;
         if (Input.GetKeyDown("right"))
         {
-            var hasNext = carBodyEnumerator.MoveNext();
-            if (!hasNext)
+            nextBody = _possibleCarBody[bodyIndex++ % _possibleCarBody.Count];
+            if(bodyIndex == int.MaxValue)
             {
-                carBodyEnumerator = _possibleCarBody.GetEnumerator();
-                carBodyEnumerator.MoveNext();
+                bodyIndex = bodyIndex % _possibleCarBody.Count;
             }
-            nextBody = carBodyEnumerator.Current;
+        }
+
+        if (Input.GetKeyDown("left"))
+        {
+            if (bodyIndex == 0)
+            {
+                bodyIndex = _possibleCarBody.Count;
+            }
+            nextBody = _possibleCarBody[bodyIndex-- % _possibleCarBody.Count];
         }
 
         if (nextBody != null)
