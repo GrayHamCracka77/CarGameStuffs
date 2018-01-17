@@ -24,29 +24,48 @@ public class LoadCarParts : MonoBehaviour
 
     void Update()
     {
-        Transform nextBody = null;
+
         if (Input.GetKeyDown("right"))
         {
-            nextBody = _possibleCarBody[bodyIndex++ % _possibleCarBody.Count];
-            if(bodyIndex == int.MaxValue)
-            {
-                bodyIndex = bodyIndex % _possibleCarBody.Count;
-            }
+            NextCarBody();
         }
 
         if (Input.GetKeyDown("left"))
         {
-            if (bodyIndex == 0)
-            {
-                bodyIndex = _possibleCarBody.Count;
-            }
-            nextBody = _possibleCarBody[bodyIndex-- % _possibleCarBody.Count];
+            PrevCarBody();
         }
 
-        if (nextBody != null)
+
+    }
+
+    public void NextCarBody()
+    {
+        bodyIndex++;
+        if (bodyIndex == int.MaxValue)
         {
-            Destroy(currentBody.gameObject);
-            currentBody = Instantiate(nextBody, currentBody.position, currentBody.rotation, _carRoot);
+            bodyIndex = bodyIndex % _possibleCarBody.Count;
         }
+
+        ReplaceCarBody();
+    }
+
+    public void PrevCarBody()
+    {
+        if (bodyIndex == 0)
+        {
+            bodyIndex = _possibleCarBody.Count;
+        }
+
+        bodyIndex--;
+
+        ReplaceCarBody();
+    }
+
+    private void ReplaceCarBody()
+    {
+        Transform nextBody = _possibleCarBody[bodyIndex % _possibleCarBody.Count];
+
+        Destroy(currentBody.gameObject);
+        currentBody = Instantiate(nextBody, currentBody.position, currentBody.rotation, _carRoot);
     }
 }
