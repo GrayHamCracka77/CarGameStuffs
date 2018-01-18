@@ -5,21 +5,21 @@ using UnityEngine;
 public class LoadCarParts : MonoBehaviour
 {
 
-    public Transform _carRoot;
-    public Transform _defaultCarBody;
-    public Transform _defaultWeapon;
+    public Transform carRoot;
+    public Transform defaultCarBody;
+    public Transform defaultWeapon;
 
-    public List<Transform> _possibleWeapons;
-    public List<Transform> _possibleCarBody;
+    public List<Transform> possibleWeapons;
+    public List<Transform> possibleCarBody;
 
-    private Transform currentBody;
-    private int bodyIndex;
+    private Transform _currentBody;
+    private int _bodyIndex;
 
     void Start()
     {
-        bodyIndex = 0;
-        currentBody = Instantiate(_defaultCarBody, _carRoot);
-        Instantiate(_defaultWeapon, _carRoot);
+        _bodyIndex = 0;
+        _currentBody = Instantiate(defaultCarBody, carRoot);
+        Instantiate(defaultWeapon, carRoot);
     }
 
     void Update()
@@ -40,10 +40,10 @@ public class LoadCarParts : MonoBehaviour
 
     public void NextCarBody()
     {
-        bodyIndex++;
-        if (bodyIndex == int.MaxValue)
+        _bodyIndex++;
+        if (_bodyIndex == int.MaxValue)
         {
-            bodyIndex = bodyIndex % _possibleCarBody.Count;
+            _bodyIndex = _bodyIndex % possibleCarBody.Count;
         }
 
         ReplaceCarBody();
@@ -51,21 +51,21 @@ public class LoadCarParts : MonoBehaviour
 
     public void PrevCarBody()
     {
-        if (bodyIndex == 0)
+        if (_bodyIndex == 0)
         {
-            bodyIndex = _possibleCarBody.Count;
+            _bodyIndex = possibleCarBody.Count;
         }
 
-        bodyIndex--;
+        _bodyIndex--;
 
         ReplaceCarBody();
     }
 
     private void ReplaceCarBody()
     {
-        Transform nextBody = _possibleCarBody[bodyIndex % _possibleCarBody.Count];
+        Transform nextBody = possibleCarBody[_bodyIndex % possibleCarBody.Count];
 
-        Destroy(currentBody.gameObject);
-        currentBody = Instantiate(nextBody, currentBody.position, currentBody.rotation, _carRoot);
+        Destroy(_currentBody.gameObject);
+        _currentBody = Instantiate(nextBody, _currentBody.position, _currentBody.rotation, carRoot);
     }
 }
