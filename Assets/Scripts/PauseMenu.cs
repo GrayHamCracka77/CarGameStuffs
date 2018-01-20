@@ -19,12 +19,7 @@ public class PauseMenu : MonoBehaviour {
         }
 	}
 
-    public void ResumeGame()
-    {
-        SetPaused(false);
-    }
-
-    private void SetPaused(bool shouldPause)
+    public void SetPaused(bool shouldPause)
     {
         menu.gameObject.SetActive(shouldPause);
         Time.timeScale = shouldPause ? 0f : 1f;

@@ -14,7 +14,7 @@ public class Rocket : MonoBehaviour {
         if (col.collider.tag != "Player")
         {
             // Effect will start itself and destroy itself when finished so we don't need to destroy it
-            Instantiate(explosionPrefab, transform.position, transform.rotation);//Quaternion.AngleAxis(0f, explosionPrefab.transform.up));
+            Instantiate(explosionPrefab, transform.position, transform.rotation);
             Destroy (gameObject);
         }
         if (col.collider.tag == "Target") 
